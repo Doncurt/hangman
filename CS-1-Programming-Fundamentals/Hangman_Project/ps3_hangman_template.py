@@ -16,8 +16,9 @@ lettersGuessed = ''
 
 num_of_mistakes = 8
 
+charGuess = ""
 
-
+lettersLeft =list ("abcdefghijklmnopqrstuvwxyz")
 
 
 
@@ -69,18 +70,26 @@ def getAvailableLetters(lettersGuessed):
     returns: string, comprised of letters that represents what letters have not
       yet been guessed.
     '''
-    lettersLeft =list ("abcdefghijklmnopqrstuvwxyz")
+
     for letter in lettersGuessed:
         if letter in lettersLeft:
             lettersLeft.remove(letter)
         return lettersLeft
 
-def getGuessedLetter(letter):
+def getGuessedLetter():
     print "Please give me a letter"
-    charGuess = input("Only one letter please")
-        if len(charGuess) > 1:
-            while len(charGuess > 1):
-                charGuess = input("Please Try Again")
+    charGuess = raw_input("Only one letter please \n")
+    if len(charGuess) > 1 or charGuess in lettersLeft:
+        charGuess = raw_input("Please Try Again\n")
+
+        return charGuess
+def getName():
+    print "Welcome to hangman!"
+    user_name = raw_input("Lets start out with your name! What is it? \n")
+    print "Lets get started ", user_name, "!"
+    print "Alright the word has ", len(secretWord), " letters"
+    print "What's your first guess at a letter?"
+
 def hangman(secretWord):
     '''
     secretWord: string, the secret word to guess.
@@ -99,13 +108,10 @@ def hangman(secretWord):
       partially guessed word so far, as well as letters that the
       user has not yet guessed.
     '''
-    print "Welcome to hangman!"
-    user_name = raw_input("Lets start out with your name! What is it?")
-    print "Lets get started ", user_name, "!"
-    print "Alright the word has ", len(secretWord), " letters"
-    print "What's your first guess at a letter?"
+    getName()
+    getGuessedLetter()
 
-
+    print charGuess
 
 
 
