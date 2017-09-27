@@ -1,4 +1,5 @@
 import random
+import string
 
 def loadWord():
    f = open('words.txt', 'r')
@@ -74,7 +75,12 @@ def getAvailableLetters(lettersGuessed):
             lettersLeft.remove(letter)
         return lettersLeft
 
-
+def getGuessedLetter(letter):
+    print "Please give me a letter"
+    charGuess = input("Only one letter please")
+        if len(charGuess) > 1:
+            while len(charGuess > 1):
+                charGuess = input("Please Try Again")
 def hangman(secretWord):
     '''
     secretWord: string, the secret word to guess.
@@ -98,6 +104,8 @@ def hangman(secretWord):
     print "Lets get started ", user_name, "!"
     print "Alright the word has ", len(secretWord), " letters"
     print "What's your first guess at a letter?"
+
+
 
 
 
