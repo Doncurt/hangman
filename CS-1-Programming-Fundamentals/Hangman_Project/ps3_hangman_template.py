@@ -87,12 +87,14 @@ def getNextGuessedLetter():
     if len(charGuess) > 1 or charGuess in lettersLeft:
         charGuess = raw_input("Please Try Again\n")
 
-def wrongGuess:
+def wrongGuess():
     mistakeCount()
     print "Whoops! That letter is not in the word!\n you now have ", num_of_mistakes, " left"
-    pass
-def right guess:
-    pass
+
+def right guess():
+    print" YAAAAAAAAAAAS HUNTY!!"
+
+    
 
 def getName():
     print "Welcome to hangman!"
@@ -102,8 +104,10 @@ def getName():
     print "What's your first guess at a letter?"
 
 def game():
-    getName()
 
+
+    getName()
+    while not isWordGuessed and num_of_mistakes > 0:
 
 def hangman(secretWord):
     '''
