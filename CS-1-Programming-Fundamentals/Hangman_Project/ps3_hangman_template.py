@@ -12,6 +12,8 @@ def loadWord():
 
 user_name = ''
 
+
+
 lettersGuessed = ''
 
 num_of_mistakes = 8
@@ -54,6 +56,7 @@ def getGuessedWord(secretWord, lettersGuessed):
     guessed correctly, the string should contain the letter at the correct position.  For letters
     in the word that the user has not yet guessed, shown an _ (underscore) instead.
     '''
+
     guessedWord = ""
     for letter in secretWord:
         if letter in lettersGuessed:
@@ -61,6 +64,7 @@ def getGuessedWord(secretWord, lettersGuessed):
         else:
             guessedWord += "_"
         return guessedWord
+
 
 def getAvailableLetters(lettersGuessed):
     '''
@@ -76,25 +80,34 @@ def getAvailableLetters(lettersGuessed):
 
 
 def getFirstGuessedLetter():
+    global lettersGuessed
+    lettersGuessed = ""
+    global output
+    output=""
     print "Please give me a letter"
     charGuess = raw_input("Only one letter please \n")
     if len(charGuess) > 1 :
         charGuess = raw_input("Please Try Again\n")
 
+        output = lettersGuessed + charGuess
+    print output
+
 def getNextGuessedLetter():
     print "Please give me a letter"
+    print "the leters left are"
     charGuess = raw_input("Only one letter please \n")
     if len(charGuess) > 1 or charGuess in lettersLeft:
         charGuess = raw_input("Please Try Again\n")
-
+        output = lettersGuessed + charGuess
+        print output
 def wrongGuess():
     mistakeCount()
     print "Whoops! That letter is not in the word!\n you now have ", num_of_mistakes, " left"
 
-def right guess():
-    print" YAAAAAAAAAAAS HUNTY!!"
+def rightGuess():
+    print "YAAAAAAAAAAAS HUNTY!!"
 
-    
+
 
 def getName():
     print "Welcome to hangman!"
@@ -108,7 +121,7 @@ def game():
 
     getName()
     while not isWordGuessed and num_of_mistakes > 0:
-
+        pass
 def hangman(secretWord):
     '''
     secretWord: string, the secret word to guess.
@@ -127,13 +140,18 @@ def hangman(secretWord):
       partially guessed word so far, as well as letters that the
       user has not yet guessed.
     '''
+
     getName()
 
     getFirstGuessedLetter()
+    getNextGuessedLetter()
 
-    print charGuess
 
 
+
+
+
+    print lettersGuessed
 
 secretWord = loadWord()
 hangman(loadWord())
