@@ -33,7 +33,6 @@ def isWordGuessed(secretWord, lettersGuessed):
         result = True
     else:
         result = False
-
     return result
 
 
@@ -42,6 +41,9 @@ def gameResult(isWordGuessed):
         print "Ding!Ding!! Ding!! You won!!"
     else:
         print "Sorry But you lost! The word is ",secretWord
+
+def mistakeCount():
+    num_of_mistakes -= num_of_mistakes
 
 
 def getGuessedWord(secretWord, lettersGuessed):
@@ -58,11 +60,7 @@ def getGuessedWord(secretWord, lettersGuessed):
             guessedWord += letter + ""
         else:
             guessedWord += "_"
-
         return guessedWord
-
-
-
 
 def getAvailableLetters(lettersGuessed):
     '''
@@ -76,19 +74,36 @@ def getAvailableLetters(lettersGuessed):
             lettersLeft.remove(letter)
         return lettersLeft
 
-def getGuessedLetter():
+
+def getFirstGuessedLetter():
+    print "Please give me a letter"
+    charGuess = raw_input("Only one letter please \n")
+    if len(charGuess) > 1 :
+        charGuess = raw_input("Please Try Again\n")
+
+def getNextGuessedLetter():
     print "Please give me a letter"
     charGuess = raw_input("Only one letter please \n")
     if len(charGuess) > 1 or charGuess in lettersLeft:
         charGuess = raw_input("Please Try Again\n")
 
-        return charGuess
+def wrongGuess:
+    mistakeCount()
+    print "Whoops! That letter is not in the word!\n you now have ", num_of_mistakes, " left"
+    pass
+def right guess:
+    pass
+
 def getName():
     print "Welcome to hangman!"
     user_name = raw_input("Lets start out with your name! What is it? \n")
     print "Lets get started ", user_name, "!"
     print "Alright the word has ", len(secretWord), " letters"
     print "What's your first guess at a letter?"
+
+def game():
+    getName()
+
 
 def hangman(secretWord):
     '''
@@ -109,7 +124,8 @@ def hangman(secretWord):
       user has not yet guessed.
     '''
     getName()
-    getGuessedLetter()
+
+    getFirstGuessedLetter()
 
     print charGuess
 
