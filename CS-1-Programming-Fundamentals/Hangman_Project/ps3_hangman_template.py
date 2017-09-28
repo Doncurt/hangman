@@ -12,17 +12,14 @@ def loadWord():
 
 user_name = ''
 
+lettersGuessed = list("")
+letterList = list("")
+
+charGuess=""
 
 
-lettersGuessed = ''
 
-num_of_mistakes = 8
-
-charGuess = ""
-
-lettersLeft =list ("abcdefghijklmnopqrstuvwxyz")
-
-
+lettersLeft = list("abcdefghijklmnopqrstuvwxyz")
 
 def isWordGuessed(secretWord, lettersGuessed):
     '''
@@ -38,14 +35,14 @@ def isWordGuessed(secretWord, lettersGuessed):
     return result
 
 
-def gameResult(isWordGuessed):
-    if isWordGuessed :
+
+    if isWordGuessed and num_of_mistakes != 1:
         print "Ding!Ding!! Ding!! You won!!"
     else:
         print "Sorry But you lost! The word is ",secretWord
 
-def mistakeCount():
-    num_of_mistakes -= num_of_mistakes
+
+
 
 
 def getGuessedWord(secretWord, lettersGuessed):
@@ -79,50 +76,18 @@ def getAvailableLetters(lettersGuessed):
         return lettersLeft
 
 
-def getFirstGuessedLetter():
-    global lettersGuessed
-    lettersGuessed = ""
-    global output
-    output=""
-    print "Please give me a letter"
-    charGuess = raw_input("Only one letter please \n")
-    if len(charGuess) > 1 :
-        charGuess = raw_input("Please Try Again\n")
-
-        output = lettersGuessed + charGuess
-    print output
-
-def getNextGuessedLetter():
-    print "Please give me a letter"
-    print "the leters left are"
-    charGuess = raw_input("Only one letter please \n")
-    if len(charGuess) > 1 or charGuess in lettersLeft:
-        charGuess = raw_input("Please Try Again\n")
-        output = lettersGuessed + charGuess
-        print output
-def wrongGuess():
-    mistakeCount()
-    print "Whoops! That letter is not in the word!\n you now have ", num_of_mistakes, " left"
-
-def rightGuess():
-    print "YAAAAAAAAAAAS HUNTY!!"
 
 
 
-def getName():
-    print "Welcome to hangman!"
-    user_name = raw_input("Lets start out with your name! What is it? \n")
-    print "Lets get started ", user_name, "!"
-    print "Alright the word has ", len(secretWord), " letters"
-    print "What's your first guess at a letter?"
+def convert_letter(word):
+    new_word = word
+    for i in range(0, len(word)):
+        if ord(word[i]) != 32:
+            new_word = new_word.replace(word[i], '_ ')
+    return new_word
 
-def game():
-
-
-    getName()
-    while not isWordGuessed and num_of_mistakes > 0:
-        pass
 def hangman(secretWord):
+    num_of_mistakes = 9
     '''
     secretWord: string, the secret word to guess.
 
@@ -140,18 +105,54 @@ def hangman(secretWord):
       partially guessed word so far, as well as letters that the
       user has not yet guessed.
     '''
+    print "Welcome to hangman!"
+    user_name = raw_input("Lets start out with your name! What is it? \n")
+    print "Lets get started ", user_name, "!"
+    print "*****************************************\n"
+    print "*****************************************\n"
 
-    getName()
+    while isWordGuessed != True and num_of_mistakes != 1:
+        print "The word you have to guess has ", len(secretWord), " letters"
+        if not lettersGuessed :
+            pass
+        else:
+            print "These are the letters youve guessed already \n"
+            print getAvailableLetters(lettersGuessed)
+        print "Heres what you have to guess \n"
+        print convert_letter(secretWord), "\n\n"
+        print getGuessedWord(secretWord, lettersGuessed)
+        print "Please give me a letter from this list of letters here"
+        print lettersLeft, "\n"
+        charGuess = raw_input("Only one letter please \n")
+        while len(charGuess) > 1 or charGuess.isalpha()==False or charGuess not in lettersLeft:
+            charGuess = raw_input("Please Try Again\n")
 
-    getFirstGuessedLetter()
-    getNextGuessedLetter()
+        if charGuess not in secretWord:
+            num_of_mistakes = num_of_mistakes - 1
+            print "\n****************************\n"
+            print "Whoops! That letter is not in the word!\n you now have ", num_of_mistakes -1, " left"
+            print "\n****************************\n"
+
+        else:
+            print "\n****************************\n"
+            print "YAAAAAAAAAAAS HUNTY!!"
+            print "\n****************************\n"
 
 
+        lettersGuessed.append([charGuess])
+        lettersLeft.remove(charGuess)
+        if num_of_mistakes != 1:
+            print lettersGuessed
 
 
-
-
-    print lettersGuessed
+    if isWordGuessed and num_of_mistakes != 1:
+        print "\n\n\n****************************\n"
+        print "Ding!Ding!! Ding!! You won!! Thanks for playing!!"
+        print "\n****************************\n"
+    else:
+        print "\n\n\n****************************\n"
+        print "Sorry But you lost! The word is ",secretWord
+        print "\n****************************\n"
 
 secretWord = loadWord()
 hangman(loadWord())
